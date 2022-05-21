@@ -1,0 +1,6 @@
+#word-list {
+    list-style: none;
+}
+.word {
+    display: inline-block;
+}
