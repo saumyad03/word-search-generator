@@ -3,4 +3,15 @@
 }
 .word {
     display: inline-block;
+    padding: 0 10px 0 10px;
+    margin: 10px 10px 10px 10px;
+}
+.letter {
+    font: 'Courier New';
+    display: inline-block;
+    padding: 10px 10px 10px 10px;
+    margin: 5px 5px 5px 5px;
+}
+#grid-container {
+    text-align: center;
 }
