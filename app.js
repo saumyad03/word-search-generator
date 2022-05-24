@@ -4,7 +4,7 @@ const addWordBtn = document.querySelector('#submit-btn');
 const warningDisplay = document.querySelector('#warning')
 const gridBtn = document.querySelector('#grid-btn');
 const sideLength = 15;
-const maxWordLength = 5;
+const maxWordLength = 6;
 const placeHolder = '#';
 const maxOrientations = 8;
 const gridContainer = document.querySelector('#grid-container');
@@ -268,21 +268,30 @@ function createGrid() {
             }
         }
     }
-
-
-
-
     displayGrid(grid);
 }
-//displays grid
+//displays grid and makes game playable
 function displayGrid(grid) {
     for (let i = 0; i < grid.length; i++) {
         for (let j = 0; j < grid[i].length; j++) {
             let letter = document.createElement('p');
-            let letterText = document.createTextNode(grid[i][j]);
-            letter.setAttribute('class', 'letter');
-            letter.append(letterText);
-            gridContainer.appendChild(letter); 
+            let text = grid[i][j];
+            if (isLetter(text)) {
+                let letterText = document.createTextNode(text);
+                letter.setAttribute('class', 'letter');
+                letter.append(letterText);
+                //letter.style.backgroundColor = 'beige'; //for testing
+                //turns it green if it's clicked
+                letter.addEventListener('click', (e) => {
+                    e.target.style.backgroundColor = 'green';
+                })
+                gridContainer.appendChild(letter); 
+            } else {
+                let letterText = document.createTextNode(generateLetter());
+                letter.setAttribute('class','letter');
+                letter.append(letterText);
+                gridContainer.appendChild(letter);
+            }
         }
         let lineBreak = document.createElement('br');
         gridContainer.appendChild(lineBreak);
@@ -291,4 +300,13 @@ function displayGrid(grid) {
 //chooses random integer from 0 to max exclusive
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
+}
+//checks if argument is a letter
+function isLetter(str) {
+    return str.match(/[a-z]/i);
+}
+function generateLetter() {
+    alphabet = 'abcdefghijklmnopqrstuvwxyz';
+    let letter = alphabet[getRandomInt(alphabet.length)];
+    return letter;
 }
