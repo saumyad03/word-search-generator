@@ -85,11 +85,6 @@ function createGrid() {
         grid.push(row);
         row = []
     }
-    /*
-    DEAL WITH INTERSECTIONS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    TECHNICHALLY YOU DON'T NEED TWO NEW COORDS FOR LEFT RIGHT UP DOWN
-    CURRENT DIAGONAL ALGORITHM IS TERRIBLY SLOW
-    */
     //orients words into grid
     for (let word of words) {
         let fits = false;
@@ -97,7 +92,9 @@ function createGrid() {
         let x;
         let y;
         let spaceX;
-        let spaceY
+        let spaceY;
+        let actualLetter;
+        let anticipatedLetter;
         //while word can't fit, look for orientation and position that allows it to fit
         while (fits == false) {
             //chooses random orientation, xcoor, and y coor
@@ -112,18 +109,41 @@ function createGrid() {
                 if (word.length <= spaceX) {
                     //prevents loop from running again for this word
                     fits = true;
-                    //puts word into 2d array
+                    //checks if the space is populated
                     for (let i = 0; i < word.length; i++) {
-                        grid[y][x+i] = word.charAt(i);
+                        actualLetter = grid[y][x+i];
+                        anticipatedLetter = word[i];
+                        if (actualLetter != '#' && actualLetter != anticipatedLetter) {
+                            fits = false;
+                            break;
+                        }
+                    }
+                    //puts word into 2d array if there's space
+                    if (fits == true) {
+                        for (let i = 0; i < word.length; i++) {
+                            grid[y][x+i] = word.charAt(i);
+                        }
                     }
                 }
             //down
             } else if (orientation == 1) {
                 spaceY = sideLength - y;
                 if (word.length <= spaceY) {
+                    //prevents loops from running again for this word
                     fits = true;
+                    //checks if space is populated
                     for (let i = 0; i < word.length; i++) {
-                        grid[y+i][x] = word.charAt(i);
+                        actualLetter = grid[y+i][x];
+                        anticipatedLetter = word.charAt(i);
+                        if (actualLetter != '#' && actualLetter != anticipatedLetter) {
+                            fits = false;
+                            break;
+                        }
+                    }
+                    if (fits == true) {
+                        for (let i = 0; i < word.length; i++) {
+                            grid[y+i][x] = word.charAt(i);
+                        }
                     }
                 }
             //left
@@ -132,7 +152,17 @@ function createGrid() {
                 if (word.length <= spaceX) {
                     fits = true;
                     for (let i = 0; i < word.length; i++) {
-                        grid[y][x-i] = word.charAt(i);
+                        actualLetter = grid[y][x-i];
+                        anticipatedLetter = word.charAt(i);
+                        if (actualLetter != '#' && actualLetter != anticipatedLetter) {
+                            fits = false;
+                            break;
+                        }
+                    }
+                    if (fits == true) {
+                        for (let i = 0; i < word.length; i++) {
+                            grid[y][x-i] = word.charAt(i);
+                        }
                     }
                 }
             //up
@@ -141,7 +171,17 @@ function createGrid() {
                 if (word.length <= spaceY) {
                     fits = true;
                     for (let i = 0; i < word.length; i++) {
-                        grid[y-i][x] = word.charAt(i);
+                        actualLetter = grid[y-i][x];
+                        anticipatedLetter = word.charAt(i);
+                        if (actualLetter != '#' && actualLetter != anticipatedLetter) {
+                            fits = false;
+                            break;
+                        }
+                    }
+                    if (fits == true) {
+                        for (let i = 0; i < word.length; i++) {
+                            grid[y-i][x] = word.charAt(i);
+                        }
                     }
                 }
             //bottom right
@@ -151,7 +191,17 @@ function createGrid() {
                 if (word.length <= spaceX && word.length <= spaceY) {
                     fits = true;
                     for (let i = 0; i < word.length; i++) {
-                        grid[y+i][x+i] = word.charAt(i);
+                        actualLetter = grid[y+i][x+i];
+                        anticipatedLetter = word.charAt(i);
+                        if (actualLetter != '#' && actualLetter != anticipatedLetter) {
+                            fits = false;
+                            break;
+                        }
+                    }
+                    if (fits == true) {
+                        for (let i = 0; i < word.length; i++) {
+                            grid[y+i][x+i] = word.charAt(i);
+                        }
                     }
                 }
             //top right
@@ -161,8 +211,19 @@ function createGrid() {
                 if (word.length <= spaceX && word.length <= spaceY) {
                     fits = true;
                     for (let i = 0; i < word.length; i++) {
-                        grid[y-i][x+i] = word.charAt(i);
+                        actualLetter = grid[y-i][x+i];
+                        anticipatedLetter = word.charAt(i);
+                        if (actualLetter != '#' && actualLetter != anticipatedLetter) {
+                            fits = false;
+                            break;
+                        }
                     }
+                    if (fits == true) {
+                        for (let i = 0; i < word.length; i++) {
+                            grid[y-i][x+i] = word.charAt(i);
+                        }
+                    }
+
                 }
             //bottom left
             } else if (orientation == 6) {
@@ -171,7 +232,17 @@ function createGrid() {
                 if (word.length <= spaceX && word.length <= spaceY) {
                     fits = true;
                     for (let i = 0; i < word.length; i++) {
-                        grid[y+i][x-i] = word.charAt(i);
+                        actualLetter = grid[y+i][x-i];
+                        anticipatedLetter = word.charAt(i);
+                        if (actualLetter != '#' && actualLetter != anticipatedLetter) {
+                            fits = false;
+                            break;
+                        }
+                    }
+                    if (fits == true) {
+                        for (let i = 0; i < word.length; i++) {
+                            grid[y+i][x-i] = word.charAt(i);
+                        }
                     }
                 }
             //top left
@@ -181,7 +252,17 @@ function createGrid() {
                 if (word.length <= spaceX && word.length <= spaceY) {
                     fits = true;
                     for (let i = 0; i < word.length; i++) {
-                        grid[y-i][x-i] = word.charAt(i);
+                        actualLetter = grid[y-i][x-i];
+                        anticipatedLetter = word.charAt(i);
+                        if (actualLetter != '#' && actualLetter != anticipatedLetter) {
+                            fits = false;
+                            break;
+                        }
+                    }
+                    if (fits == true) {
+                        for (let i = 0; i < word.length; i++) {
+                            grid[y-i][x-i] = word.charAt(i);
+                        }
                     }
                 }
             }
