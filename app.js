@@ -3,9 +3,10 @@ const textBox = document.querySelector('#text-box')
 const addWordBtn = document.querySelector('#submit-btn');
 const warningDisplay = document.querySelector('#warning')
 const gridBtn = document.querySelector('#grid-btn');
-const sideLength = 5;
+const sideLength = 15;
 const maxWordLength = 5;
 const placeHolder = '#';
+const maxOrientations = 8;
 const gridContainer = document.querySelector('#grid-container');
 let words = [];
 
@@ -100,12 +101,12 @@ function createGrid() {
         //while word can't fit, look for orientation and position that allows it to fit
         while (fits == false) {
             //chooses random orientation, xcoor, and y coor
-            orientation = getRandomInt(1);
+            orientation = getRandomInt(maxOrientations);
             x = getRandomInt(sideLength);
             y = getRandomInt(sideLength);
             //checks if fits for diff orientations
             //right
-            if (orientation == 1) {
+            if (orientation == 0) {
                 spaceX = sideLength - x;
                 //if it fits
                 if (word.length <= spaceX) {
@@ -116,13 +117,71 @@ function createGrid() {
                         grid[y][x+i] = word.charAt(i);
                     }
                 }
-            //left
-            } else if (orientation == 0) {
+            //down
+            } else if (orientation == 1) {
                 spaceY = sideLength - y;
                 if (word.length <= spaceY) {
                     fits = true;
                     for (let i = 0; i < word.length; i++) {
                         grid[y+i][x] = word.charAt(i);
+                    }
+                }
+            //left
+            } else if (orientation == 2) {
+                spaceX = x + 1;
+                if (word.length <= spaceX) {
+                    fits = true;
+                    for (let i = 0; i < word.length; i++) {
+                        grid[y][x-i] = word.charAt(i);
+                    }
+                }
+            //up
+            } else if (orientation == 3) {
+                spaceY = y + 1;
+                if (word.length <= spaceY) {
+                    fits = true;
+                    for (let i = 0; i < word.length; i++) {
+                        grid[y-i][x] = word.charAt(i);
+                    }
+                }
+            //bottom right
+            } else if (orientation == 4) {
+                spaceX = sideLength - x;
+                spaceY = sideLength - y;
+                if (word.length <= spaceX && word.length <= spaceY) {
+                    fits = true;
+                    for (let i = 0; i < word.length; i++) {
+                        grid[y+i][x+i] = word.charAt(i);
+                    }
+                }
+            //top right
+            } else if (orientation == 5) {
+                spaceX = sideLength - x;
+                spaceY = y + 1;
+                if (word.length <= spaceX && word.length <= spaceY) {
+                    fits = true;
+                    for (let i = 0; i < word.length; i++) {
+                        grid[y-i][x+i] = word.charAt(i);
+                    }
+                }
+            //bottom left
+            } else if (orientation == 6) {
+                spaceX = x + 1;
+                spaceY = sideLength - y;
+                if (word.length <= spaceX && word.length <= spaceY) {
+                    fits = true;
+                    for (let i = 0; i < word.length; i++) {
+                        grid[y+i][x-i] = word.charAt(i);
+                    }
+                }
+            //top left
+            } else if (orientation == 7) {
+                spaceX = x + 1;
+                spaceY = y + 1;
+                if (word.length <= spaceX && word.length <= spaceY) {
+                    fits = true;
+                    for (let i = 0; i < word.length; i++) {
+                        grid[y-i][x-i] = word.charAt(i);
                     }
                 }
             }
