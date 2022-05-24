@@ -5,6 +5,7 @@ const warningDisplay = document.querySelector('#warning')
 const gridBtn = document.querySelector('#grid-btn');
 const sideLength = 5;
 const maxWordLength = 5;
+const placeHolder = '#';
 const gridContainer = document.querySelector('#grid-container');
 let words = [];
 
@@ -78,72 +79,52 @@ function createGrid() {
     //populates grid array with 0's
     for (let i = 0; i < sideLength; i++) {
         for (let j = 0; j < sideLength; j++) {
-            row.push('z');
+            row.push(placeHolder);
         }
         grid.push(row);
         row = []
     }
     /*
     DEAL WITH INTERSECTIONS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    TECHNICHALLY YOU DON'T NEED TWO NEW COORDS FOR LEFT RIGHT UP DOWN
+    CURRENT DIAGONAL ALGORITHM IS TERRIBLY SLOW
     */
     //orients words into grid
     for (let word of words) {
-        //uses rng to generate orientation for word
-        let orientation = getRandomInt(1);
-        //randomly generates position for word
-        let x = getRandomInt(sideLength);
-        let y = getRandomInt(sideLength);
-        //left-right orientation
-        if (orientation == 4) {
-            //while word doesn't fit, keep looking for coordinates
-            let space = sideLength - x;
-            while (word.length > space) {
-                x = getRandomInt(sideLength);
-                y = getRandomInt(sideLength);
-                space = sideLength - x;
-            }
-            //inserts word into grid left-right (x increments, y doesn't change)
-            for (let i = 0; i < word.length; i++) {
-                grid[y][x + i] = word.charAt(i);
-            }
-        //right-left orientation
-        } else if (orientation == 3) {
-            let space = x + 1;
-            //while word doesn't fit, keep looking for coordinates
-            while (word.length > space) {
-                x = getRandomInt(sideLength);
-                y = getRandomInt(sideLength);
-                space = x + 1;
-            }
-            //inserts word into grid right-left (x decrements, y doesn't change)
-            for (let i = 0; i < word.length; i++) {
-                grid[y][x - i] = word.charAt(i);
-            }
-        //up-down orientation
-        } else if (orientation == 5) {
-            let space = sideLength - y;
-            //while word doesn't fit, keep looking for coordinates
-            while (word.length > space) {
-                x = getRandomInt(sideLength);
-                y = getRandomInt(sideLength);
-                space = sideLength - y;
-            }
-            //inserts word into grid up-down (x doesn't change, y increments)
-            for (let i = 0; i < word.length; i++) {
-                grid[y + i][x] = word.charAt(i);
-            }
-        //down-up orientation
-        } else if (orientation == 0) {
-            let space = y + 1
-            //while word doesn't fit, keep looking for coordinates
-            while (word.length > space) {
-                x = getRandomInt(sideLength);
-                y = getRandomInt(sideLength);
-                space = y + 1;
-            }
-            //inserts word into grid down-up (x doesn't change, y decrements)
-            for (let i = 0; i < word.length; i++) {
-                grid[y - i][x] = word.charAt(i);
+        let fits = false;
+        let orientation;
+        let x;
+        let y;
+        let spaceX;
+        let spaceY
+        //while word can't fit, look for orientation and position that allows it to fit
+        while (fits == false) {
+            //chooses random orientation, xcoor, and y coor
+            orientation = getRandomInt(1);
+            x = getRandomInt(sideLength);
+            y = getRandomInt(sideLength);
+            //checks if fits for diff orientations
+            //right
+            if (orientation == 1) {
+                spaceX = sideLength - x;
+                //if it fits
+                if (word.length <= spaceX) {
+                    //prevents loop from running again for this word
+                    fits = true;
+                    //puts word into 2d array
+                    for (let i = 0; i < word.length; i++) {
+                        grid[y][x+i] = word.charAt(i);
+                    }
+                }
+            //left
+            } else if (orientation == 0) {
+                spaceY = sideLength - y;
+                if (word.length <= spaceY) {
+                    fits = true;
+                    for (let i = 0; i < word.length; i++) {
+                        grid[y+i][x] = word.charAt(i);
+                    }
+                }
             }
         }
     }
