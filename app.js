@@ -13,6 +13,7 @@ const bgColor = '#564256';
 const hlColor = '#8b0000';
 const correctColor = '#96939B';
 const instructions = document.querySelector('#instructions');
+const gridRestartText = document.querySelector('#grid-restart-text')
 
 //adds word if button to add is clicked or enter button is clicked
 addWordBtn.addEventListener('click', addWord);
@@ -309,8 +310,13 @@ function displayGrid(grid) {
         }
         let lineBreak = document.createElement('br');
         gridContainer.appendChild(lineBreak);
-        instructions.textContent = "Find all the words. Click on all the letters of a word to \"find\" it."
     }
+    //changes instructions and button text
+    instructions.textContent = "Find all the words. Click on all the letters of a word to \"find\" it."
+    gridRestartText.textContent = 'Restart';
+    //replaces event listener
+    gridBtn.removeEventListener('click', createGrid);
+    gridBtn.addEventListener('click', restart);
 }
 //chooses random integer from 0 to max exclusive
 function getRandomInt(max) {
@@ -324,4 +330,18 @@ function generateLetter() {
     alphabet = 'abcdefghijklmnopqrstuvwxyz';
     let letter = alphabet[getRandomInt(alphabet.length)];
     return letter;
+}
+function restart() {
+    //changes instructions and button text
+    instructions.textContent = "Add words by typing them in and clicking \"Add Word\" or hitting enter. Words can be deleted by clicking on them."
+    gridRestartText.textContent = 'Create Word Search';
+    //replaces event listener
+    gridBtn.removeEventListener('click', restart)
+    gridBtn.addEventListener('click', createGrid);
+    //gets rid of all words displayed
+    wordList.innerHTML = '';
+    //gets rid of word search
+    gridContainer.innerHTML = '';
+    //clears list of words
+    words = [];
 }
