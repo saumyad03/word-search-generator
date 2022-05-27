@@ -1,3 +1,23 @@
+body {
+    background-color: #564256;
+    text-align: center;
+}
+#title {
+    text-align: center;
+    color: #E8E8E8;
+}
+#word-list-title {
+    color: #E8E8E8;
+    margin: 5px 0 5px 0;
+    padding: none;
+}
+#word-list {
+    color: #FC814A;
+}
+#warning {
+    color: #FC814A;
+    margin: 10px 0 10px 0;
+}
 #word-list {
     list-style: none;
 }
@@ -14,4 +34,13 @@
 }
 #grid-container {
     text-align: center;
+}
+#instructions-title {
+    color: #E8E8E8;
+}
+#instructions {
+    color: #BFBFBF;
+}
+#grid-container {
+    color: #FC814A;
 }

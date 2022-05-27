@@ -9,6 +9,10 @@ const placeHolder = '#';
 const maxOrientations = 8;
 const gridContainer = document.querySelector('#grid-container');
 let words = [];
+const bgColor = '#564256';
+const hlColor = '#8b0000';
+const correctColor = '#96939B';
+const instructions = document.querySelector('#instructions');
 
 //adds word if button to add is clicked or enter button is clicked
 addWordBtn.addEventListener('click', addWord);
@@ -78,11 +82,11 @@ function removeFromList(list, word) {
 }
 //highlights word to be deleted
 function highlight() {
-    this.style.background = 'red';
+    this.style.background = hlColor;
 }
 //unhighlights word to be deleted
 function unhighlight() {
-    this.style.background = 'white';
+    this.style.background = bgColor;
 }
 function createGrid() {
     let grid = []
@@ -291,9 +295,9 @@ function displayGrid(grid) {
                 letter.setAttribute('class', 'letter');
                 letter.append(letterText);
                 //letter.style.backgroundColor = 'beige'; //for testing
-                //turns it green if it's clicked
+                //turns correct color if it's clicked
                 letter.addEventListener('click', (e) => {
-                    e.target.style.backgroundColor = 'green';
+                    e.target.style.backgroundColor = correctColor;
                 })
                 gridContainer.appendChild(letter); 
             } else {
@@ -305,6 +309,7 @@ function displayGrid(grid) {
         }
         let lineBreak = document.createElement('br');
         gridContainer.appendChild(lineBreak);
+        instructions.textContent = "Find all the words. Click on all the letters of a word to \"find\" it."
     }
 }
 //chooses random integer from 0 to max exclusive

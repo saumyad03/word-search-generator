@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Saumya's Word Search Generator</h1>
+    <h1 id="title">Saumya's Word Search Generator</h1>
     <!-- <h2>Instructions: Add word by typing it in and clicking 
         "Add Word" button. To delete a word, simply click on
          it in the word list.</h2> -->
     <input id='text-box' type="text">
     <button id="submit-btn">Add Word</button>
-    <h3 id="warning"></h3>
-    <h2>Word List:</h2>
+    <h3 id="warning" class="headers"></h3>
+    <h2 id="word-list-title">Word List:</h2>
     <div>
         <li id="word-list">
 
@@ -25,6 +25,10 @@
     <div id="grid-container">
 
     </div>
+    <h3 id="instructions-title">Instructions:</h3>
+    <p id="instructions">
+        Add words by typing them in and clicking "Add Word" or hitting enter. Words can be deleted by clicking on them.
+    </p>
     <script src="app.js"></script>
 </body>
 </html>
