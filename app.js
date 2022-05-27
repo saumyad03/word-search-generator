@@ -4,13 +4,19 @@ const addWordBtn = document.querySelector('#submit-btn');
 const warningDisplay = document.querySelector('#warning')
 const gridBtn = document.querySelector('#grid-btn');
 const sideLength = 15;
-const maxWordLength = 6;
+const maxWordLength = 8;
 const placeHolder = '#';
 const maxOrientations = 8;
 const gridContainer = document.querySelector('#grid-container');
 let words = [];
 
+//adds word if button to add is clicked or enter button is clicked
 addWordBtn.addEventListener('click', addWord);
+document.addEventListener('keypress', (event) => {
+    if (event.keyCode == 13) {
+        addWord();
+    }
+})
 gridBtn.addEventListener('click', createGrid);
 
 //adds word
@@ -37,7 +43,11 @@ function addWord() {
 //checks whether word is valid and changes warning display accordingly
 function validateWord(word) {
     //makes sure word is not too long
-    if (word.length > maxWordLength) {
+    if (word.length == 0) {
+        warningDisplay.textContent = "Enter a word first"
+        return false;
+    }
+    else if (word.length > maxWordLength) {
         warningDisplay.textContent = `Word must contain no more than ${maxWordLength} characters`;
         return false;
     //makes sure word only contains letters
