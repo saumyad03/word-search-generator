@@ -11,7 +11,7 @@ const gridContainer = document.querySelector('#grid-container');
 let words = [];
 const bgColor = '#292b2c';
 const hlColor = '#d9534f';
-const correctColor = '#96939B';
+const correctColor = '#d9534f';
 const instructions = document.querySelector('#instructions');
 const gridRestartText = document.querySelector('#grid-restart-text')
 

@@ -15,7 +15,7 @@ body {
     color: #5cb85c;
 }
 #warning {
-    color: #f0ad4e;
+    color: #d9534f;
     margin: 10px 0 10px 0;
 }
 #word-list {
@@ -27,7 +27,6 @@ body {
     margin: 10px 10px 10px 10px;
 }
 .letter {
-    color: #5cb85c;
     font: 'Courier New';
     display: inline-block;
     padding: 10px 10px 10px 10px;
@@ -40,8 +39,8 @@ body {
     color: #f7f7f7;
 }
 #instructions {
-    color: #BFBFBF;
+    color: #f7f7f7;
 }
 #grid-container {
-    color: #FC814A;
+    color: #5cb85c;
 }
