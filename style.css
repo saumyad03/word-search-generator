@@ -1,21 +1,21 @@
 body {
-    background-color: #564256;
+    background-color: #292b2c;
     text-align: center;
 }
 #title {
     text-align: center;
-    color: #E8E8E8;
+    color: #f7f7f7;
 }
 #word-list-title {
-    color: #E8E8E8;
+    color: #f7f7f7;
     margin: 5px 0 5px 0;
     padding: none;
 }
 #word-list {
-    color: #FC814A;
+    color: #5cb85c;
 }
 #warning {
-    color: #FC814A;
+    color: #f0ad4e;
     margin: 10px 0 10px 0;
 }
 #word-list {
@@ -27,6 +27,7 @@ body {
     margin: 10px 10px 10px 10px;
 }
 .letter {
+    color: #5cb85c;
     font: 'Courier New';
     display: inline-block;
     padding: 10px 10px 10px 10px;
@@ -36,7 +37,7 @@ body {
     text-align: center;
 }
 #instructions-title {
-    color: #E8E8E8;
+    color: #f7f7f7;
 }
 #instructions {
     color: #BFBFBF;

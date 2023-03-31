@@ -9,19 +9,20 @@ const placeHolder = '#';
 const maxOrientations = 8;
 const gridContainer = document.querySelector('#grid-container');
 let words = [];
-const bgColor = '#564256';
-const hlColor = '#8b0000';
+const bgColor = '#292b2c';
+const hlColor = '#d9534f';
 const correctColor = '#96939B';
 const instructions = document.querySelector('#instructions');
 const gridRestartText = document.querySelector('#grid-restart-text')
 
 //adds word if button to add is clicked or enter button is clicked
 addWordBtn.addEventListener('click', addWord);
-document.addEventListener('keypress', (event) => {
+function enterAddWord(event) {
     if (event.keyCode == 13) {
         addWord();
     }
-})
+}
+document.addEventListener('keypress', enterAddWord);
 gridBtn.addEventListener('click', createGrid);
 
 //adds word
@@ -322,6 +323,8 @@ function displayGrid(grid) {
     wordElements.forEach(element => element.removeEventListener("click", deleteWord));
     wordElements.forEach(element => element.removeEventListener("mouseover", highlight));
     wordElements.forEach(element => element.removeEventListener("mouseout", unhighlight));
+    addWordBtn.removeEventListener("click", addWord);
+    document.removeEventListener('keypress', enterAddWord);
 }
 //chooses random integer from 0 to max exclusive
 function getRandomInt(max) {
@@ -349,4 +352,7 @@ function restart() {
     gridContainer.innerHTML = '';
     //clears list of words
     words = [];
+    //resets add word button and adding words with enter key
+    addWordBtn.addEventListener('click', addWord);
+    document.addEventListener('keypress', enterAddWord);
 }
