@@ -32,7 +32,7 @@ function addWord() {
     //creating new list element with text if word is valid and adds it to list of words
     if (validateWord(word)) {
         words.push(word);
-        let newWordEl = document.createElement('ul');
+        let newWordEl = document.createElement('li');
         newWordEl.setAttribute('class','word')
         let newWordText = document.createTextNode(word);
         newWordEl.append(newWordText);
@@ -317,6 +317,11 @@ function displayGrid(grid) {
     //replaces event listener
     gridBtn.removeEventListener('click', createGrid);
     gridBtn.addEventListener('click', restart);
+    //removes event listeners from words
+    let wordElements = document.querySelectorAll("li")
+    wordElements.forEach(element => element.removeEventListener("click", deleteWord));
+    wordElements.forEach(element => element.removeEventListener("mouseover", highlight));
+    wordElements.forEach(element => element.removeEventListener("mouseout", unhighlight));
 }
 //chooses random integer from 0 to max exclusive
 function getRandomInt(max) {
